@@ -1,3 +1,8 @@
+## You'll need
+
+* A Linux PC, laptop or Raspberry with SD card reader/slot
+* A number of Raspberry Pis configured with Ethernet
+
 ## Provision each Raspberry Pi:
 
 1. Clone the gist
