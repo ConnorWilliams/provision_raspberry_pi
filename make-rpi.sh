@@ -30,10 +30,14 @@ mount /dev/${DEV}2 /mnt/rpi/root
 
 # Add our SSH key
 mkdir -p /mnt/rpi/root/home/pi/.ssh/
-cat ~/.ssh/id_rsa.pub > /mnt/rpi/root/home/pi/.ssh/authorized_keys
+cat template-authorized_keys > /mnt/rpi/root/home/pi/.ssh/authorized_keys
 
 # Enable ssh
 touch /mnt/rpi/boot/ssh
+
+# Disable password login
+
+sed -ie s/#PasswordAuthentication\ yes/PasswordAuthentication\ no/g /mnt/rpi/root/etc/ssh/sshd_config
 
 echo "Setting hostname: $1"
 
