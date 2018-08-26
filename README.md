@@ -18,6 +18,7 @@ On each Raspberry Pi run
 
 ```
 curl -sLS https://get.docker.com | sudo sh
+sudo usermod -aG docker pi
 ```
 
 Then on one Raspberry Pi (master) run:
