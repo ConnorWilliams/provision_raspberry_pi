@@ -24,6 +24,7 @@ sudo usermod -aG docker pi
 Then on one Raspberry Pi (master) run:
 
 ```
+sudo apt update && sudo apt install git
 docker swarm init --advertise-addr=eth0
 ```
 
