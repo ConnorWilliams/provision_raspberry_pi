@@ -12,8 +12,12 @@ if [ -z $1 ]; then
   exit 1
 fi
 
-export DEV=sde
-export IMAGE=2018-06-27-raspbian-stretch-lite.img
+export DEV='disk2'
+export IMAGE='~/Downloads/2018-11-13-raspbian-stretch-lite.img'
+export COUNTRY_CODE='NL'
+export SSH_PUB_KEY='~/.ssh/home-pi.pub'
+export SSID=''
+export PSK=''
 
 if [ -z "$SKIP_FLASH" ];
 then
@@ -30,7 +34,7 @@ mount /dev/${DEV}2 /mnt/rpi/root
 
 # Add our SSH key
 mkdir -p /mnt/rpi/root/home/pi/.ssh/
-cat template-authorized_keys > /mnt/rpi/root/home/pi/.ssh/authorized_keys
+cat $SSH_PUB_KEY > /mnt/rpi/root/home/pi/.ssh/authorized_keys
 
 # Enable ssh
 touch /mnt/rpi/boot/ssh
@@ -51,6 +55,19 @@ echo "gpu_mem=16" >> /mnt/rpi/boot/config.txt
 cp /mnt/rpi/root/etc/dhcpcd.conf /mnt/rpi/root/etc/dhcpcd.conf.orig
 
 sed s/100/$2/g template-dhcpcd.conf > /mnt/rpi/root/etc/dhcpcd.conf
+
+# Set wifi details
+/mnt/rpi/boot/wpa_supplicant.conf << WPASUPPLICANT
+    ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+    update_config=1
+    country=$COUNTRY_CODE
+
+    network={
+        ssid=$SSID
+        psk=$PSK
+        key_mgmt=WPA-PSK
+    }
+WPASUPPLICANT
 
 echo "Unmounting SD Card"
 
