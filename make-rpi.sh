@@ -12,12 +12,14 @@ if [ -z $1 ]; then
   exit 1
 fi
 
-export DEV='disk2'
-export IMAGE='~/Downloads/2018-11-13-raspbian-stretch-lite.img'
+export DEV='sdd'
+export IMAGE='/home/connor/Downloads/2018-11-13-raspbian-stretch-lite.img'
 export COUNTRY_CODE='NL'
-export SSH_PUB_KEY='~/.ssh/home-pi.pub'
+export SSH_PUB_KEY='/home/connor/.ssh/home-pi.pub'
 export SSID=''
 export PSK=''
+export SKIP_FLASH=''
+
 
 if [ -z "$SKIP_FLASH" ];
 then
@@ -57,6 +59,7 @@ cp /mnt/rpi/root/etc/dhcpcd.conf /mnt/rpi/root/etc/dhcpcd.conf.orig
 sed s/100/$2/g template-dhcpcd.conf > /mnt/rpi/root/etc/dhcpcd.conf
 
 # Set wifi details
+touch /mnt/rpi/boot/wpa_supplicant.conf
 /mnt/rpi/boot/wpa_supplicant.conf << WPASUPPLICANT
     ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
     update_config=1
