@@ -10,7 +10,7 @@ You must have an SSH key, if you don't know what this is then type in `ssh-keyge
 
 1. Clone the gist and run `chmod +x make-rpi.sh`
 2. Download the [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/) image and place it in the folder
-3. Insert an SD card into your SD card reader
+3. Insert a formatted SD card into your SD card reader
 4. Edit `make-rpi.sh` and update:
    *  `export DEV=` to the device you see on `lsblk` (or `diskutil list` on Mac) for your SD card reader
    *  `export IMAGE=` to the filename of the image you dowloaded
