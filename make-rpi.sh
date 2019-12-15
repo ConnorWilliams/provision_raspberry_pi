@@ -71,7 +71,8 @@ WPASUPPLICANT
 
 # Enable I2C
 sed -i '/i2c_arm/ s/^#//g' /boot/config.txt  # uncomment line in /boot/config.txt containing i2c_arm
-echo 'i2c-dev' | sudo tee -a /etc/modules > /dev/null  # add i2c-dev to /etc/modules so kernel loads it on boot
+echo 'i2c-dev' | tee -a /etc/modules > /dev/null  # add i2c-dev to /etc/modules so kernel loads it on boot
+adduser pi i2c
 
 echo "Unmounting SD Card"
 umount /mnt/rpi/boot
